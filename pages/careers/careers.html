@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | SKPM & Associates LLP</title>
+    <link rel="icon" type="image/jpeg" href="../../images/ca_logo.jpeg">
+    <meta name="description" content="Join the SKPM & Associates LLP team. Explore open positions and apply online.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+    <script src="../../config.js"></script>
+    <style>
+        /* =============================================
+           CAREERS HERO
+           ============================================= */
+        .careers-hero {
+            min-height: 100dvh;
+            background-color: #050505;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 6rem 1.5rem 3rem;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            gap: 2rem;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            inset: -15px;
+            background-image: url('../../images/careers/hero_section.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px);
+            z-index: 0;
+        }
+
+        .careers-hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .careers-hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            bottom: -150px;
+            left: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .careers-hero .hero-top {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+            width: 100%;
+        }
+
+        .careers-hero h1 {
+            font-size: 5.2rem;
+            font-weight: 800;
+            font-family: var(--body-font);
+            margin-bottom: 1.25rem;
+            color: #ffffff !important;
+            line-height: 1.15;
+        }
+
+        .careers-hero h1 span {
+            background: linear-gradient(135deg, #00D4FF, #38BDF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .careers-hero .hero-sub {
+            font-size: clamp(0.95rem, 2vw, 1.35rem);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        /* CTA buttons */
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-cta-primary {
+            background: rgba(56, 189, 248, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.97rem;
+            text-decoration: none;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(56, 189, 248, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta-primary:hover {
+            transform: translateY(-2px);
+            background: rgba(56, 189, 248, 0.95);
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow: 0 10px 40px 0 rgba(56, 189, 248, 0.5);
+        }
+
+        .hero-cta-secondary {
+            background: rgba(56, 189, 248, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.97rem;
+            text-decoration: none;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta-secondary:hover {
+            background: rgba(56, 189, 248, 0.65);
+            transform: translateY(-2px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        /* =============================================
+           LIFE AT OUR FIRM
+           ============================================= */
+        .life-section {
+            padding: 5rem 0;
+            background: #fff;
+            text-align: center;
+            scroll-margin-top: 90px;
+        }
+
+        .life-badge {
+            display: inline-block;
+            background: #E0E7FF;
+            border-radius: 50px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2563EB;
+            margin-bottom: 1.2rem;
+        }
+
+        .life-heading {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 0.75rem;
+            font-family: var(--body-font);
+        }
+
+        .life-heading span {
+            background: linear-gradient(135deg, #2563EB, #38BDF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .life-subtitle {
+            font-size: 1rem;
+            color: #64748B;
+            margin-bottom: 3rem;
+        }
+
+        .life-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .life-card {
+            background: #D1E9FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 18px;
+            padding: 2rem 1.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .life-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.10);
+        }
+
+        .life-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .life-card-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon-blue   { background: linear-gradient(135deg, #6366F1, #2563EB); }
+        .icon-teal   { background: linear-gradient(135deg, #10B981, #059669); }
+        .icon-pink   { background: linear-gradient(135deg, #F43F5E, #E11D48); }
+        .icon-purple { background: linear-gradient(135deg, #8B5CF6, #6D28D9); }
+
+        .life-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 0.6rem;
+            font-family: var(--body-font);
+        }
+
+        .life-card p {
+            font-size: 0.92rem;
+            color: #64748B;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* =============================================
+           APPLICATION FORM
+           ============================================= */
+        .application-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .application-section .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .application-form-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #F8FAFC;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #E2E8F0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+        }
+
+        .form-row-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .careers-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .careers-form label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0F172A;
+            margin-bottom: 0.5rem;
+        }
+
+        .careers-form .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+            font-family: var(--body-font);
+            font-size: 0.97rem;
+            background: white;
+            transition: border-color 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .careers-form .form-control:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .careers-form select.form-control {
+            cursor: pointer;
+        }
+
+        .careers-form textarea.form-control {
+            resize: vertical;
+        }
+
+        .file-upload-note {
+            font-size: 0.82rem;
+            color: #94A3B8;
+            margin-top: 0.4rem;
+        }
+
+        .submit-careers-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: #2563EB;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--body-font);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        .submit-careers-btn:hover {
+            background: #1D4ED8;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .submit-careers-btn svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* =============================================
+           RESPONSIVE — TABLET LANDSCAPE  (≤ 1024px)
+           ============================================= */
+        @media (max-width: 1024px) {
+            .life-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .careers-hero h1 {
+                font-size: 3.8rem;
+            }
+        }
+
+        /* =============================================
+           RESPONSIVE — TABLET  (≤ 992px)
+           ============================================= */
+        @media (max-width: 992px) {
+            .careers-hero h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        /* =============================================
+           RESPONSIVE — TABLET PORTRAIT  (≤ 768px)
+           ============================================= */
+        @media (max-width: 768px) {
+            .careers-hero {
+                padding: 5rem 1.25rem 2.5rem;
+                gap: 1.5rem;
+            }
+
+            .careers-hero h1 {
+                font-size: 2.3rem;
+                line-height: 1.2;
+            }
+
+            .life-section {
+                padding: 3.5rem 0;
+            }
+
+            .life-heading br {
+                display: none;
+            }
+
+            .application-section {
+                padding: 3rem 0;
+            }
+
+            .application-form-wrapper {
+                padding: 1.75rem 1.25rem;
+            }
+
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =============================================
+           RESPONSIVE — MOBILE  (≤ 540px)
+           ============================================= */
+        @media (max-width: 540px) {
+            .careers-hero {
+                padding: 4.5rem 1rem 2rem;
+                gap: 1.25rem;
+            }
+
+            .careers-hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .hero-cta-primary,
+            .hero-cta-secondary {
+                width: fit-content;
+                text-align: center;
+            }
+
+            .life-section {
+                padding: 3rem 0;
+            }
+
+            .life-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .life-card {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .application-form-wrapper {
+                padding: 1.5rem 1rem;
+                border-radius: 14px;
+            }
+
+            .form-row,
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .submit-careers-btn {
+                width: 100%;
+                max-width: 340px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="nav-dark-bg">
+        <div class="nav-container">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo/s-k-p-m-associates-llp-chartered-accountants-1.png"
+                    alt="SKPM & Associates LLP Logo" id="nav-logo" class="logo-large">
+            </a>
+            <div class="mobile-toggle" id="mobile-menu-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 32px; height: 32px;">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li class="mobile-nav-header">
+                    <img src="../../logo/s-k-p-m-associates-llp-chartered-accountants-1.png" alt="SKPM Logo">
+                    <div class="mobile-close" id="mobile-close-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </div>
+                </li>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../services/services.html">Services</a></li>
+                <li><a href="../about/about.html">About Us</a></li>
+                <li><a href="careers.html" class="active">Careers</a></li>
+                <li class="nav-cta-wrapper"><a href="../../index.html#get-in-touch" class="nav-cta-btn">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="careers-hero">
+        <!-- Blurred Background Image -->
+        <div class="hero-bg-image"></div>
+        <!-- Top content -->
+        <div class="hero-top">
+            <h1>Build Your Career<br><span>With Us</span></h1>
+            <p class="hero-sub">Join a team of sharp minds committed to transforming the way businesses handle their
+                finances. We invest in our people.</p>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="hero-ctas">
+            <a href="#life-section" class="hero-cta-secondary">Life at Our Firm</a>
+            <a href="#apply-now" class="hero-cta-primary">Apply Now &rarr;</a>
+        </div>
+
+    </section>
+
+    <!-- Life at Our Firm Section -->
+    <section class="life-section" id="life-section">
+        <div class="container">
+            <span class="life-badge">Life at Our Firm</span>
+            <h2 class="life-heading">Why You'll Love Working<br><span>Here</span></h2>
+            <p class="life-subtitle">We invest in our people as much as we invest in our clients</p>
+
+            <div class="life-cards-grid">
+                <!-- Card 1: Career Growth -->
+                <div class="life-card">
+                    <div class="life-card-icon icon-blue">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
+                    <h4>Career Growth</h4>
+                    <p>Structured growth paths, mentorship from senior partners, and real exposure to complex mandates
+                        from day one.</p>
+                </div>
+                <!-- Card 2: Continuous Learning -->
+                <div class="life-card">
+                    <div class="life-card-icon icon-teal">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h4>Continuous Learning</h4>
+                    <p>Sponsored professional certifications, in-house training sessions, and access to curated learning
+                        resources.</p>
+                </div>
+                <!-- Card 3: Work-Life Balance -->
+                <div class="life-card">
+                    <div class="life-card-icon icon-pink">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4>Work-Life Balance</h4>
+                    <p>Flexible schedules, a supportive culture, and genuine respect for your time outside the office.
+                    </p>
+                </div>
+                <!-- Card 4: Great Culture -->
+                <div class="life-card">
+                    <div class="life-card-icon icon-purple">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h4>Friendly Work Culture</h4>
+                    <p>A collaborative, inclusive team where every voice counts and achievements are celebrated
+                        together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="application-section" id="apply-now">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="global-heading">Apply Now</h2>
+            </div>
+            <div class="application-form-wrapper">
+                <form id="careers-form" class="careers-form"
+                    action="https://script.google.com/macros/s/AKfycbxhhuQDkzdh_wme057uVBRUrQtSqVjFOqgRuLHvm3yBdMdvn-yzPraYYtAZ_hUPFFeo/exec"
+                    method="POST" enctype="multipart/form-data">
+                    <div id="careers-form-message"
+                        style="display:none; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 600;">
+                    </div>
+                    <input type="hidden" name="form_type" value="careers">
+                    <input type="hidden" name="sheet_name" value="careers">
+                    <input type="hidden" name="notification_email" value="contact@skpm.co.in">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="c-fname">Name *</label>
+                            <input type="text" id="c-fname" name="name" class="form-control"
+                                placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-phone">Phone Number *</label>
+                            <input type="tel" id="c-phone" name="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-email">Email Address *</label>
+                            <input type="email" id="c-email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="c-edu">Highest Qualification *</label>
+                            <input type="text" id="c-edu" name="qualification" class="form-control"
+                                placeholder="e.g. CA Inter, B.Com, M.Com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-exp">Years of Experience *</label>
+                            <input type="text" id="c-exp" name="experience" class="form-control"
+                                placeholder="e.g. Fresher, 2 Years" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-linkedin">LinkedIn / Portfolio URL *</label>
+                            <input type="url" id="c-linkedin" name="linkedin" class="form-control"
+                                placeholder="https://linkedin.com/in/yourprofile" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="c-position">Position Applying For *</label>
+                            <input type="text" id="c-position" name="position" class="form-control"
+                                placeholder="e.g. Article Assistant, Tax Consultant" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-resume">Upload Resume (Optional)</label>
+                            <input type="file" id="c-resume" name="resume" class="form-control"
+                                accept=".pdf,.doc,.docx,.txt" style="padding: 0.6rem 1rem; cursor: pointer;">
+                            <span class="file-upload-note">pdf, doc, docx, or txt - max 10 MB</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c-message">Cover Letter / Why do you want to join us? (Optional)</label>
+                        <textarea id="c-message" name="message" class="form-control" rows="3"
+                            placeholder="Tell us about yourself and why you're a great fit..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-careers-btn">
+                        Submit Application
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+
+    <script src="../../script.js"></script>
+</body>
+
+</html>

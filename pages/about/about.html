@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | SKPM & Associates LLP</title>
+    <link rel="icon" type="image/jpeg" href="../../images/ca_logo.jpeg">
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Learn about SKPM & Associates LLP, a premier CA firm in Pune with 15+ years of expertise. Explore our vision, values, and expert team of partners.">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+
+    <script src="../../config.js"></script>
+    <script src="about_config.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="nav-dark-bg">
+        <div class="nav-container">
+            <a href="../../index.html" class="logo">
+                <img src="../../logo/s-k-p-m-associates-llp-chartered-accountants-1.png" alt="SKPM logo" id="nav-logo"
+                    class="logo-large">
+            </a>
+            <div class="mobile-toggle" id="mobile-menu-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 32px; height: 32px;">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li class="mobile-nav-header">
+                    <img src="../../logo/s-k-p-m-associates-llp-chartered-accountants-1.png" alt="SKPM Logo">
+                    <div class="mobile-close" id="mobile-close-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </div>
+                </li>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../services/services.html">Services</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="../careers/careers.html">Careers</a></li>
+                <li class="nav-cta-wrapper"><a href="../../index.html#get-in-touch" class="nav-cta-btn">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Content Grid -->
+    <div id="about-page-root"></div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+
+    <script src="../../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof renderAboutPage === 'function') {
+                renderAboutPage();
+            }
+        });
+    </script>
+    <script src="../../script.js"></script>
+</body>
+
+</html>
