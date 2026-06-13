@@ -1,1 +1,4 @@
 ﻿client_dashboard/.env
+
+# Supabase CLI local scratch (machine-specific, not part of the app)
+supabase/.temp/
