@@ -2,6 +2,22 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
+// Pull auth params out of either the query string (?token_hash=…&type=recovery)
+// or the URL hash (#access_token=…&type=recovery / #error=…). Supabase uses
+// both depending on which email-link flow delivered the user here.
+function readAuthParams() {
+  const query = new URLSearchParams(window.location.search)
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+  const get = (k) => query.get(k) || hash.get(k)
+  return {
+    tokenHash: get('token_hash'),
+    type: get('type'),
+    accessToken: get('access_token'),
+    errorCode: get('error_code'),
+    errorDescription: get('error_description'),
+  }
+}
+
 export default function ResetPassword() {
   const navigate = useNavigate()
   const [password, setPassword] = useState('')
@@ -9,13 +25,68 @@ export default function ResetPassword() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
-  const [ready, setReady] = useState(false)
+  // 'verifying' → checking the link · 'ready' → show form · 'invalid' → link dead
+  const [status, setStatus] = useState('verifying')
+  const [invalidMsg, setInvalidMsg] = useState('')
 
   useEffect(() => {
+    let active = true
+    let settled = false
+    const fail = (msg) => {
+      if (!active || settled) return
+      settled = true
+      setInvalidMsg(msg || 'This reset link is invalid or has expired.')
+      setStatus('invalid')
+    }
+    const succeed = () => { if (active && !settled) { settled = true; setStatus('ready') } }
+
+    const { tokenHash, type, accessToken, errorCode, errorDescription } = readAuthParams()
+
+    // The implicit-hash flow fires PASSWORD_RECOVERY once Supabase parses the URL.
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') setReady(true)
+      if (event === 'PASSWORD_RECOVERY') succeed()
     })
-    return () => subscription.unsubscribe()
+
+    ;(async () => {
+      // 1) Link came back with an error (expired / already used by a scanner).
+      if (errorCode) {
+        fail(decodeURIComponent((errorDescription || '').replace(/\+/g, ' ')))
+        return
+      }
+      // 2) token_hash flow — verify client-side so email prefetchers can't burn it.
+      if (tokenHash) {
+        const { error } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: type || 'recovery',
+        })
+        if (error) fail(error.message)
+        else succeed()
+        return
+      }
+      // 3) Implicit-hash flow — a session may already be established from the URL.
+      if (accessToken || type === 'recovery') {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session) succeed()
+        return // otherwise wait for the PASSWORD_RECOVERY event / timeout below
+      }
+      // 4) No recovery params at all — also check for a pre-existing session.
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) succeed()
+      else fail('No reset link detected. Request a new one to continue.')
+    })()
+
+    // Safety net: never spin forever waiting on the implicit flow.
+    const timer = setTimeout(() => {
+      if (active && !settled) {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session) succeed()
+          else fail('This reset link is invalid or has expired.')
+        })
+      }
+    }, 5000)
+
+    return () => { active = false; subscription.unsubscribe(); clearTimeout(timer) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function handleSubmit(e) {
@@ -69,11 +140,25 @@ export default function ResetPassword() {
               <p className="font-medium text-slate-900">Password updated!</p>
               <p className="text-sm text-slate-500 mt-1">Redirecting to login…</p>
             </div>
-          ) : !ready ? (
+          ) : status === 'verifying' ? (
             <div className="text-center py-4">
               <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
               <p className="text-sm text-slate-500">Verifying reset link…</p>
-              <p className="text-xs text-slate-400 mt-2">If nothing happens, the link may have expired. <button onClick={() => navigate('/login')} className="text-blue-600 underline">Go to login</button></p>
+            </div>
+          ) : status === 'invalid' ? (
+            <div className="text-center py-4">
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-red-600 text-xl">!</span>
+              </div>
+              <p className="font-medium text-slate-900">Link expired or invalid</p>
+              <p className="text-sm text-slate-500 mt-1">{invalidMsg}</p>
+              <button
+                onClick={() => navigate('/login')}
+                className="mt-5 w-full py-2.5 rounded-lg text-sm font-semibold text-white transition-all"
+                style={{ backgroundColor: '#2563eb' }}
+              >
+                Request a new reset link
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">

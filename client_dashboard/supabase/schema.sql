@@ -340,6 +340,48 @@ create policy "skpm can delete visits"
 -- skpm_admin user manually, then use the admin panel for subsequent users.
 
 -- ============================================================
+-- FUNCTION: Delete a user (auth login + profile)
+-- ============================================================
+
+-- Called from the admin UI: supabase.rpc('delete_user', { target_user_id }).
+-- SECURITY DEFINER so it can remove the row from auth.users, which cascades
+-- to public.users (FK on delete cascade). Guarded so only skpm_admin may run
+-- it, and admins / the caller's own account cannot be deleted.
+create or replace function public.delete_user(target_user_id uuid)
+returns void
+language plpgsql
+security definer
+set search_path = public, auth
+as $$
+declare
+  caller_role text;
+  target_role text;
+begin
+  -- Only admins may delete users
+  select role into caller_role from public.users where id = auth.uid();
+  if caller_role is distinct from 'skpm_admin' then
+    raise exception 'Only admins can delete users';
+  end if;
+
+  -- Cannot delete your own account
+  if target_user_id = auth.uid() then
+    raise exception 'You cannot delete your own account';
+  end if;
+
+  -- Cannot delete other admins
+  select role into target_role from public.users where id = target_user_id;
+  if target_role = 'skpm_admin' then
+    raise exception 'Admin users cannot be deleted';
+  end if;
+
+  -- Remove the auth login; cascades to public.users via FK on delete cascade
+  delete from auth.users where id = target_user_id;
+end;
+$$;
+
+grant execute on function public.delete_user(uuid) to authenticated;
+
+-- ============================================================
 -- INDEXES
 -- ============================================================
 

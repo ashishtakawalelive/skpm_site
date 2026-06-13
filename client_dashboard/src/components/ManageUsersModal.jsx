@@ -42,7 +42,7 @@ export default function ManageUsersModal({ onClose, clients }) {
   }, [])
 
   async function sendResetLink(user) {
-    const redirectTo = `${window.location.origin}/reset-password`
+    const redirectTo = `${window.location.origin}${import.meta.env.BASE_URL}reset-password`
     const { error } = await supabase.auth.resetPasswordForEmail(user.email, { redirectTo })
     if (!error) {
       setResetSent(prev => ({ ...prev, [user.id]: true }))
