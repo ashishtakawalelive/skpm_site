@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SKPM Dashboard — design tokens
+   ============================================================ */
+:root {
+  --brand:        #2563eb;
+  --brand-deep:   #1e3a5f;
+  --brand-violet: #8b5cf6;
+  --brand-teal:   #14b8a6;
+
+  --glass-bg:        rgba(255, 255, 255, 0.72);
+  --glass-bg-strong: rgba(255, 255, 255, 0.88);
+  --glass-border:    rgba(255, 255, 255, 0.80);
+  --glass-shadow:    0 2px 12px rgba(15, 23, 42, 0.07);
+  --glass-shadow-lg: 0 8px 32px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* Neutral warm-grey — won't merge with any column color, pairs with dark navy navbar */
+  background-color: #eceef4;
+  background-image:
+    radial-gradient(ellipse at 0% 0%,   rgba(100, 116, 139, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 0%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(20, 184, 166, 0.04) 0%, transparent 55%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ============================================================
+   Glass utilities
+   ============================================================ */
+.glass-panel {
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-soft {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.60);
+}
+
+/* Dark navy band — matches the website's alternating dark sections */
+.dark-band {
+  background:
+    radial-gradient(ellipse at 85% 110%, rgba(37, 99, 235, 0.16) 0%, transparent 55%),
+    linear-gradient(155deg, #071528 0%, #0c1d3a 45%, #112750 100%);
+}
+
+.glass-dark {
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(2, 8, 23, 0.35);
+}
+.glass-dark.glass-hover:hover {
+  box-shadow: 0 12px 36px rgba(2, 8, 23, 0.5);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.input-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+.input-dark::placeholder { color: rgba(255, 255, 255, 0.35); }
+.input-dark:focus {
+  outline: none;
+  border-color: #60a5fa;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+.glass-toolbar {
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.glass-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.glass-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+/* ============================================================
+   Kanban column entrance — staggered slide-up
+   ============================================================ */
+@keyframes columnEntrance {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.kanban-column {
+  animation: columnEntrance 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.kanban-column:nth-child(1) { animation-delay:   0ms; }
+.kanban-column:nth-child(2) { animation-delay:  55ms; }
+.kanban-column:nth-child(3) { animation-delay: 110ms; }
+.kanban-column:nth-child(4) { animation-delay: 165ms; }
+.kanban-column:nth-child(5) { animation-delay: 220ms; }
+.kanban-column:nth-child(6) { animation-delay: 275ms; }
+.kanban-column:nth-child(7) { animation-delay: 330ms; }
+.kanban-column:nth-child(8) { animation-delay: 385ms; }
+
+/* ============================================================
+   Card entrance
+   ============================================================ */
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.kanban-column > div > div > * {
+  animation: cardEntrance 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ============================================================
+   Login page entrance
+   ============================================================ */
+@keyframes loginFadeIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.login-form-panel {
+  animation: loginFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 80ms;
+}
+
+/* ============================================================
+   Modals / dropdowns
+   ============================================================ */
+@keyframes fadeScaleIn {
+  from { opacity: 0; transform: scale(0.97) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-enter {
+  animation: fadeScaleIn 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.38);
+  transform: translateY(-1px);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #e2e8f0;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+.btn-ghost:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Skeleton loading
+   ============================================================ */
+@keyframes shimmer {
+  0%   { background-position: -480px 0; }
+  100% { background-position: 480px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(226, 232, 240, 0.55) 25%,
+    rgba(241, 245, 249, 0.95) 50%,
+    rgba(226, 232, 240, 0.55) 75%
+  );
+  background-size: 960px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+/* ============================================================
+   Scrollbars
+   ============================================================ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.55);
+  background-clip: content-box;
+}
+
+/* ============================================================
+   Focus ring
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.65);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
