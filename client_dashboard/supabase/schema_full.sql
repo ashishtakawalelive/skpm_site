@@ -66,10 +66,14 @@ create table if not exists public.cards (
   data jsonb not null default '{}',
   position integer not null default 0,
   status text not null default 'default' check (status in ('default', 'in_progress', 'done', 'overdue')),
+  completed_at timestamptz,
   month integer not null default 6,
   year integer not null default 2026,
   created_at timestamptz not null default now()
 );
+
+-- Safety net: ensure completed_at exists even if cards was created from the old schema
+alter table public.cards add column if not exists completed_at timestamptz;
 
 -- Card comments table
 create table if not exists public.card_comments (

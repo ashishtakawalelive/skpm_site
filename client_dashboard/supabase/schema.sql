@@ -56,6 +56,7 @@ create table if not exists public.cards (
   data jsonb not null default '{}',
   position integer not null default 0,
   status text not null default 'default' check (status in ('default', 'in_progress', 'done', 'overdue')),
+  completed_at timestamptz,
   month integer not null default 6,
   year integer not null default 2026,
   created_at timestamptz not null default now()
